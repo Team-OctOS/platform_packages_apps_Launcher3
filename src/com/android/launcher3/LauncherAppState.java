@@ -39,6 +39,8 @@ public class LauncherAppState {
     private String currentIconPack;
     private final WidgetPreviewLoader mWidgetCache;
 
+    private static boolean mSettingsChanged;
+
     private boolean mWallpaperChangedSinceLastCheck;
 
     private static WeakReference<LauncherProvider> sLauncherProvider;
@@ -103,6 +105,14 @@ public class LauncherAppState {
         filter.addAction(LauncherAppsCompat.ACTION_MANAGED_PROFILE_REMOVED);
 
         sContext.registerReceiver(mModel, filter);
+    }
+
+    public static boolean getSettingsChanged() {
+        return mSettingsChanged;
+    }
+
+    public static void setSettingsChanged(boolean b) {
+        mSettingsChanged = b;
     }
 
     /**
