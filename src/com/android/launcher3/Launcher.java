@@ -3491,7 +3491,7 @@ public class Launcher extends Activity
         }
     }
 
-    void showOverviewMode(boolean animated) {
+    public void showOverviewMode(boolean animated) {
         mWorkspace.setVisibility(View.VISIBLE);
         mStateTransitionAnimation.startAnimationToWorkspace(mState, Workspace.State.OVERVIEW,
                 WorkspaceStateTransitionAnimation.SCROLL_TO_CURRENT_PAGE, animated,
@@ -3502,7 +3502,7 @@ public class Launcher extends Activity
     /**
      * Shows the apps view.
      */
-    void showAppsView(boolean animated, boolean resetListToTop, boolean updatePredictedApps,
+    public void showAppsView(boolean animated, boolean resetListToTop, boolean updatePredictedApps,
             boolean focusSearchBar) {
         if (resetListToTop) {
             mAppsView.scrollToTop();
