@@ -1851,6 +1851,7 @@ public class LauncherModel extends BroadcastReceiver
                             int itemType = c.getInt(itemTypeIndex);
                             boolean restored = 0 != c.getInt(restoredIndex);
                             boolean allowMissingTarget = false;
+                            boolean launcherAction = false;
                             container = c.getInt(containerIndex);
 
                             switch (itemType) {
@@ -2054,6 +2055,10 @@ public class LauncherModel extends BroadcastReceiver
                                     info.isDisabled = disabledState;
                                     if (isSafeMode && !Utilities.isSystemApp(context, intent)) {
                                         info.isDisabled |= ShortcutInfo.FLAG_DISABLED_SAFEMODE;
+                                    }
+                                    if (intent.getAction().equals(
+                                            ShortcutHelper.ACTION_SLIM_LAUNCHER_SHORTCUT)) {
+                                        info.launcherAction = true;
                                     }
 
                                     // check & update map of what's occupied
