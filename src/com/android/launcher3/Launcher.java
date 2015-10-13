@@ -576,12 +576,6 @@ public class Launcher extends Activity
         LauncherAppState.getInstance().getInvariantDeviceProfile().updateFromPreferences(this);
         updatePreferences();
 
-        if (mShowSearchBar) {
-            mSearchDropTargetBar.showSearchBar(false);
-        } else {
-            mSearchDropTargetBar.hideSearchBar(false);
-        }
-
         //mDeviceProfile.layout(this);
         mWorkspace.reloadSettings();
         mWorkspace.updateLayout();
@@ -591,6 +585,12 @@ public class Launcher extends Activity
         mAppsCustomizeContent.invalidateOnDataChange();
 
         mHotseat.updateHotseat();
+
+        if (mShowSearchBar) {
+            mSearchDropTargetBar.showSearchBar(false);
+        } else {
+            mSearchDropTargetBar.hideSearchBar(false);
+        }
 
         mRotationEnabled = SettingsProvider.getBoolean(this, SettingsProvider.ALLOW_ROTATION,
                 getResources().getBoolean(R.bool.allow_rotation));
@@ -1539,6 +1539,15 @@ public class Launcher extends Activity
             settingsButton.setVisibility(View.GONE);
         }
 
+        View defaultScreenButton = findViewById(R.id.default_screen_button);
+        defaultScreenButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                onClickDefaultScreenButton(arg0);
+            }
+        });
+        defaultScreenButton.setOnTouchListener(getHapticFeedbackTouchListener());
+
         mOverviewPanel.setAlpha(0f);
 
         // Setup the workspace
@@ -1554,7 +1563,8 @@ public class Launcher extends Activity
         // Setup Apps and Widgets
         mAppsView = (AllAppsContainerView) findViewById(R.id.apps_view);
         mWidgetsView = (WidgetsContainerView) findViewById(R.id.widgets_view);
-        if (mLauncherCallbacks != null && mLauncherCallbacks.getAllAppsSearchBarController() != null) {
+        if (mLauncherCallbacks != null
+                && mLauncherCallbacks.getAllAppsSearchBarController() != null) {
             mAppsView.setSearchBarController(mLauncherCallbacks.getAllAppsSearchBarController());
         } else {
             mAppsView.setSearchBarController(mAppsView.newDefaultAppSearchController());
@@ -1577,6 +1587,7 @@ public class Launcher extends Activity
         if (mSearchDropTargetBar != null) {
             mSearchDropTargetBar.setup(this, dragController);
             mSearchDropTargetBar.setQsbSearchBar(getOrCreateQsbBar());
+            if (!mShowSearchBar) mSearchDropTargetBar.hideSearchBar(false);
         }
 
         if (getResources().getBoolean(R.bool.debug_memory_enabled)) {
@@ -2986,6 +2997,11 @@ public class Launcher extends Activity
         } else {
             startActivity(new Intent(this, SettingsActivity.class));
         }
+    }
+
+    protected void onClickDefaultScreenButton(View v) {
+        if (LOGD) Log.d(TAG, "onClickDefaultScreenButton");
+        mWorkspace.onClickDefaultScreenButton();
     }
 
     public View.OnTouchListener getHapticFeedbackTouchListener() {
