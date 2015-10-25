@@ -2024,6 +2024,7 @@ public class LauncherModel extends BroadcastReceiver
                                             allowMissingTarget, useLowResIcon);
                                 } else {
                                     info = getShortcutInfo(c, context, titleIndex, cursorIconInfo);
+                                    Log.d("TEST", "here : " + info.toString());
 
                                     // App shortcuts that used to be automatically added to Launcher
                                     // didn't always have the correct intent flags set, so do that
@@ -3400,11 +3401,14 @@ public class LauncherModel extends BroadcastReceiver
         final ShortcutInfo info = new ShortcutInfo();
         info.user = UserHandleCompat.myUserHandle();
 
+        Log.d("TEST", "getRestoredItemInfo");
+
         Bitmap icon = iconInfo.loadIcon(c, info, context);
         // the fallback icon
         if (icon == null) {
             mIconCache.getTitleAndIcon(info, intent, info.user, false /* useLowResIcon */);
         } else {
+            Log.d("TEST", "HERE");
             info.setIcon(icon);
         }
 
@@ -3475,6 +3479,7 @@ public class LauncherModel extends BroadcastReceiver
         }
 
         final ShortcutInfo info = new ShortcutInfo();
+        info.title = Utilities.trim(c.getString(titleIndex));
         mIconCache.getTitleAndIcon(info, componentName, lai, user, false, useLowResIcon);
         if (mIconCache.isDefaultIcon(info.getIcon(mIconCache), user) && c != null) {
             Bitmap icon = Utilities.createIconBitmap(c, iconIndex, context);
