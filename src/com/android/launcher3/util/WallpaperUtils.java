@@ -24,8 +24,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.view.WindowManager;
 
-import com.android.launcher3.Utilities;
-
 /**
  * Utility methods for wallpaper management.
  */
@@ -101,7 +99,7 @@ public final class WallpaperUtils {
             int maxDim = Math.max(maxDims.x, maxDims.y);
             int minDim = Math.max(minDims.x, minDims.y);
 
-            if (Utilities.ATLEAST_JB_MR1) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 Point realSize = new Point();
                 windowManager.getDefaultDisplay().getRealSize(realSize);
                 maxDim = Math.max(realSize.x, realSize.y);

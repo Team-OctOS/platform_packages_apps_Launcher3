@@ -65,16 +65,19 @@ import java.util.HashSet;
 import java.util.List;
 
 public class LauncherProvider extends ContentProvider {
-    private static final String TAG = "LauncherProvider";
+    private static final String TAG = "Launcher.LauncherProvider";
     private static final boolean LOGD = false;
 
     private static final int DATABASE_VERSION = 26;
 
-    public static final String AUTHORITY = ProviderConfig.AUTHORITY;
+    static final String OLD_AUTHORITY = "com.android.launcher2.settings";
+    static final String AUTHORITY = ProviderConfig.AUTHORITY;
 
     static final String TABLE_FAVORITES = LauncherSettings.Favorites.TABLE_NAME;
     static final String TABLE_WORKSPACE_SCREENS = LauncherSettings.WorkspaceScreens.TABLE_NAME;
     static final String EMPTY_DATABASE_CREATED = "EMPTY_DATABASE_CREATED";
+
+    private static final String URI_PARAM_IS_EXTERNAL_ADD = "isExternalAdd";
 
     private static final String RESTRICTION_PACKAGE_NAME = "workspace.configuration.package.name";
 
@@ -137,21 +140,14 @@ public class LauncherProvider extends ContentProvider {
         return db.insert(table, nullColumnHack, values);
     }
 
-    private void reloadLauncherIfExternal() {
-        if (Utilities.ATLEAST_MARSHMALLOW && Binder.getCallingPid() != Process.myPid()) {
-            LauncherAppState app = LauncherAppState.getInstanceNoCreate();
-            if (app != null) {
-                app.reloadWorkspace();
-            }
-        }
-    }
-
     @Override
     public Uri insert(Uri uri, ContentValues initialValues) {
         SqlArguments args = new SqlArguments(uri);
 
-        // In very limited cases, we support system|signature permission apps to modify the db.
-        if (Binder.getCallingPid() != Process.myPid()) {
+        // In very limited cases, we support system|signature permission apps to add to the db
+        String externalAdd = uri.getQueryParameter(URI_PARAM_IS_EXTERNAL_ADD);
+        final boolean isExternalAll = externalAdd != null && "true".equals(externalAdd);
+        if (isExternalAll) {
             if (!mOpenHelper.initializeExternalAdd(initialValues)) {
                 return null;
             }
@@ -165,20 +161,13 @@ public class LauncherProvider extends ContentProvider {
         uri = ContentUris.withAppendedId(uri, rowId);
         notifyListeners();
 
-        if (Utilities.ATLEAST_MARSHMALLOW) {
-            reloadLauncherIfExternal();
-        } else {
-            // Deprecated behavior to support legacy devices which rely on provider callbacks.
+        if (isExternalAll) {
             LauncherAppState app = LauncherAppState.getInstanceNoCreate();
-            if (app != null && "true".equals(uri.getQueryParameter("isExternalAdd"))) {
+            if (app != null) {
                 app.reloadWorkspace();
             }
-
-            String notify = uri.getQueryParameter("notify");
-            if (notify == null || "true".equals(notify)) {
-                getContext().getContentResolver().notifyChange(uri, null);
-            }
         }
+
         return uri;
     }
 
@@ -203,7 +192,6 @@ public class LauncherProvider extends ContentProvider {
         }
 
         notifyListeners();
-        reloadLauncherIfExternal();
         return values.length;
     }
 
@@ -215,7 +203,6 @@ public class LauncherProvider extends ContentProvider {
         try {
             ContentProviderResult[] result =  super.applyBatch(operations);
             db.setTransactionSuccessful();
-            reloadLauncherIfExternal();
             return result;
         } finally {
             db.endTransaction();
@@ -230,7 +217,6 @@ public class LauncherProvider extends ContentProvider {
         int count = db.delete(args.table, args.where, args.args);
         if (count > 0) notifyListeners();
 
-        reloadLauncherIfExternal();
         return count;
     }
 
@@ -243,7 +229,6 @@ public class LauncherProvider extends ContentProvider {
         int count = db.update(args.table, values, args.where, args.args);
         if (count > 0) notifyListeners();
 
-        reloadLauncherIfExternal();
         return count;
     }
 
@@ -413,7 +398,7 @@ public class LauncherProvider extends ContentProvider {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private AutoInstallsLayout createWorkspaceLoaderFromAppRestriction() {
         // UserManager.getApplicationRestrictions() requires minSdkVersion >= 18
-        if (!Utilities.ATLEAST_JB_MR2) {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             return null;
         }
 

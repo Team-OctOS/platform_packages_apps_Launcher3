@@ -198,15 +198,11 @@ public class ShortcutInfo extends ItemInfo {
         return mIcon;
     }
 
-    public void updateIcon(IconCache iconCache, boolean useLowRes) {
+    public void updateIcon(IconCache iconCache) {
         if (itemType == Favorites.ITEM_TYPE_APPLICATION) {
             iconCache.getTitleAndIcon(this, promisedIntent != null ? promisedIntent : intent, user,
-                    useLowRes);
+                    shouldUseLowResIcon());
         }
-    }
-
-    public void updateIcon(IconCache iconCache) {
-        updateIcon(iconCache, shouldUseLowResIcon());
     }
 
     @Override

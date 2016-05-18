@@ -213,10 +213,6 @@ class PreloadIconDrawable extends Drawable {
         return mAnimationProgress;
     }
 
-    public boolean hasNotCompleted() {
-        return mAnimationProgress < ANIMATION_PROGRESS_COMPLETED;
-    }
-
     @Override
     public int getIntrinsicHeight() {
         return mIcon.getIntrinsicHeight();

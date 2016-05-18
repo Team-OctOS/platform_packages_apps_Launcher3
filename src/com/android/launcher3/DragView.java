@@ -131,7 +131,7 @@ public class DragView extends View {
         measure(ms, ms);
         mPaint = new Paint(Paint.FILTER_BITMAP_FLAG);
 
-        if (Utilities.ATLEAST_LOLLIPOP) {
+        if (Utilities.isLmpOrAbove()) {
             setElevation(getResources().getDimension(R.dimen.drag_elevation));
         }
     }
@@ -252,14 +252,14 @@ public class DragView extends View {
             setColorScale(color, m2);
             m1.postConcat(m2);
 
-            if (Utilities.ATLEAST_LOLLIPOP) {
+            if (Utilities.isLmpOrAbove()) {
                 animateFilterTo(m1.getArray());
             } else {
                 mPaint.setColorFilter(new ColorMatrixColorFilter(m1));
                 invalidate();
             }
         } else {
-            if (!Utilities.ATLEAST_LOLLIPOP || mCurrentFilter == null) {
+            if (!Utilities.isLmpOrAbove() || mCurrentFilter == null) {
                 mPaint.setColorFilter(null);
                 invalidate();
             } else {

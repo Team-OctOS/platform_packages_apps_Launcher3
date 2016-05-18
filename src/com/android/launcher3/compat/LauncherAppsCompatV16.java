@@ -31,7 +31,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
-import com.android.launcher3.Utilities;
 import com.android.launcher3.util.Thunk;
 
 import java.util.ArrayList;
@@ -189,7 +188,7 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
                 // when moving a package or mounting/un-mounting external storage. Assume that
                 // it is a replacing operation.
                 final boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING,
-                        !Utilities.ATLEAST_KITKAT);
+                        Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT);
                 String[] packages = intent.getStringArrayExtra(Intent.EXTRA_CHANGED_PACKAGE_LIST);
                 for (OnAppsChangedCallbackCompat callback : getCallbacks()) {
                     callback.onPackagesAvailable(packages, user, replacing);

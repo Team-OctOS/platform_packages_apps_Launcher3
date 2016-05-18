@@ -68,6 +68,8 @@ public class AppNameComparator {
      * Returns a locale-aware comparator that will alphabetically order a list of applications.
      */
     public Comparator<ItemInfo> getAppInfoComparator() {
+        // Clear the user serial cache so that we get serials as needed in the comparator
+        mAppInfoComparator.clearUserCache();
         return mAppInfoComparator;
     }
 

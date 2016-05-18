@@ -31,6 +31,10 @@ import com.android.launcher3.compat.AppWidgetManagerCompat;
  * @see {@link PendingAddItemInfo}
  */
 public class PendingAddWidgetInfo extends PendingAddItemInfo {
+    public int minWidth;
+    public int minHeight;
+    public int minResizeWidth;
+    public int minResizeHeight;
     public int previewImage;
     public int icon;
     public LauncherAppWidgetProviderInfo info;
@@ -46,13 +50,17 @@ public class PendingAddWidgetInfo extends PendingAddItemInfo {
         this.info = i;
         user = AppWidgetManagerCompat.getInstance(launcher).getUser(i);
         componentName = i.provider;
+        minWidth = i.minWidth;
+        minHeight = i.minHeight;
+        minResizeWidth = i.minResizeWidth;
+        minResizeHeight = i.minResizeHeight;
         previewImage = i.previewImage;
         icon = i.icon;
 
-        spanX = i.spanX;
-        spanY = i.spanY;
-        minSpanX = i.minSpanX;
-        minSpanY = i.minSpanY;
+        spanX = i.getSpanX(launcher);
+        spanY = i.getSpanY(launcher);
+        minSpanX = i.getMinSpanX(launcher);
+        minSpanY = i.getMinSpanY(launcher);
     }
 
     public boolean isCustomWidget() {

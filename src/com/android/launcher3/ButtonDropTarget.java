@@ -24,6 +24,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.PointF;
@@ -92,7 +93,7 @@ public abstract class ButtonDropTarget extends TextView
         // drawableLeft and drawableStart.
         mDrawable = getResources().getDrawable(resId);
 
-        if (Utilities.ATLEAST_JB_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             setCompoundDrawablesRelativeWithIntrinsicBounds(mDrawable, null, null, null);
         } else {
             setCompoundDrawablesWithIntrinsicBounds(mDrawable, null, null, null);
@@ -113,7 +114,7 @@ public abstract class ButtonDropTarget extends TextView
     @Override
     public final void onDragEnter(DragObject d) {
         d.dragView.setColor(mHoverColor);
-        if (Utilities.ATLEAST_LOLLIPOP) {
+        if (Utilities.isLmpOrAbove()) {
             animateTextColor(mHoverColor);
         } else {
             if (mCurrentFilter == null) {
@@ -130,8 +131,8 @@ public abstract class ButtonDropTarget extends TextView
         // Do nothing
     }
 
-    protected void resetHoverColor() {
-        if (Utilities.ATLEAST_LOLLIPOP) {
+	protected void resetHoverColor() {
+        if (Utilities.isLmpOrAbove()) {
             animateTextColor(mOriginalTextColor.getDefaultColor());
         } else {
             mDrawable.setColorFilter(null);

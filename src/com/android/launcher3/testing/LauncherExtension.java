@@ -202,11 +202,6 @@ public class LauncherExtension extends Launcher {
         }
 
         @Override
-        public boolean startSearchFromAllApps(String query) {
-            return false;
-        }
-
-        @Override
         public void startVoice() {
         }
 

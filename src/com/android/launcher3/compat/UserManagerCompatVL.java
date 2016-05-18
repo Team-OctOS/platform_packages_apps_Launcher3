@@ -24,14 +24,9 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.UserHandle;
-
 import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.util.LongArrayMap;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -48,32 +43,7 @@ public class UserManagerCompatVL extends UserManagerCompatV17 {
     }
 
     @Override
-    public void enableAndResetCache() {
-        synchronized (this) {
-            mUsers = new LongArrayMap<>();
-            mUserToSerialMap = new HashMap<>();
-            List<UserHandle> users = mUserManager.getUserProfiles();
-            if (users != null) {
-                for (UserHandle user : users) {
-                    long serial = mUserManager.getSerialNumberForUser(user);
-                    UserHandleCompat userCompat = UserHandleCompat.fromUser(user);
-                    mUsers.put(serial, userCompat);
-                    mUserToSerialMap.put(userCompat, serial);
-                }
-            }
-        }
-    }
-
-    @Override
     public List<UserHandleCompat> getUserProfiles() {
-        synchronized (this) {
-            if (mUsers != null) {
-                List<UserHandleCompat> users = new ArrayList<>();
-                users.addAll(mUserToSerialMap.keySet());
-                return users;
-            }
-        }
-
         List<UserHandle> users = mUserManager.getUserProfiles();
         if (users == null) {
             return Collections.emptyList();
@@ -101,9 +71,7 @@ public class UserManagerCompatVL extends UserManagerCompatV17 {
 
     @Override
     public long getUserCreationTime(UserHandleCompat user) {
-        if (Utilities.ATLEAST_MARSHMALLOW) {
-            return mUserManager.getUserCreationTime(user.getUser());
-        }
+        // TODO: Use system API once available.
         SharedPreferences prefs = mContext.getSharedPreferences(
                 LauncherAppState.getSharedPreferencesKey(), Context.MODE_PRIVATE);
         String key = USER_CREATION_TIME_KEY + getSerialNumberForUser(user);

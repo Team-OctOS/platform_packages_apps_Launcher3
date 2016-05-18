@@ -22,7 +22,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -58,6 +58,10 @@ public class ColorPickerDialog
 
     private OnColorChangedListener mListener;
 
+    public interface OnColorChangedListener {
+        public void onColorChanged(int color);
+    }
+
     public ColorPickerDialog(Context context, int initialColor) {
         super(context);
 
@@ -74,7 +78,10 @@ public class ColorPickerDialog
 
     private void setUp(int color) {
 
-        View layout = View.inflate(getContext(), R.layout.dialog_color_picker, null);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+
+        View layout = inflater.inflate(R.layout.dialog_color_picker, null);
 
         setContentView(layout);
 
@@ -100,7 +107,7 @@ public class ColorPickerDialog
                 0,
                 Math.round(mColorPicker.getDrawingOffset()),
                 0
-        );
+                );
 
         mOldColor.setOnClickListener(this);
         mNewColor.setOnClickListener(this);
@@ -119,7 +126,7 @@ public class ColorPickerDialog
             mHex.setText(ColorPickerPreference.convertToARGB(color));
         }
         if (mSetButton != null) {
-            mSetButton.setOnClickListener(new View.OnClickListener() {
+           mSetButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -128,7 +135,6 @@ public class ColorPickerDialog
                         int newColor = ColorPickerPreference.convertToColorInt(text);
                         mColorPicker.setColor(newColor, true);
                     } catch (Exception e) {
-                        // Ignore
                     }
                 }
             });
@@ -145,8 +151,11 @@ public class ColorPickerDialog
                 mHex.setText(ColorPickerPreference.convertToARGB(color));
             }
         } catch (Exception e) {
-            // Ignore
+
         }
+        /*
+         * if (mListener != null) { mListener.onColorChanged(color); }
+         */
 
     }
 
@@ -171,7 +180,6 @@ public class ColorPickerDialog
                     try {
                         mColorPicker.setColor(color, true);
                     } catch (Exception e) {
-                        // Ignore
                     }
                 }
             });
@@ -180,6 +188,8 @@ public class ColorPickerDialog
 
     /**
      * Set a OnColorChangedListener to get notified when the color selected by the user has changed.
+     *
+     * @param listener
      */
     public void setOnColorChangedListener(OnColorChangedListener listener) {
         mListener = listener;
@@ -200,7 +210,6 @@ public class ColorPickerDialog
             try {
                 mColorPicker.setColor(mDefaultColor, true);
             } catch (Exception e) {
-                // Ignore
             }
         }
     }
@@ -214,14 +223,10 @@ public class ColorPickerDialog
     }
 
     @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mOldColor.setColor(savedInstanceState.getInt("old_color"));
         mColorPicker.setColor(savedInstanceState.getInt("new_color"), true);
-    }
-
-    public interface OnColorChangedListener {
-        void onColorChanged(int color);
     }
 
 }

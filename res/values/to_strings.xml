@@ -15,4 +15,8 @@
     <string name="hex_hint" translatable="false">#ff000000</string>
     <string name="set">Set</string>
 
+   <!-- Homescreen Settings -->
+    <string name="homescreen_title">Homescreen</string>
+    <string name="show_search_bar_title">Show search bar</string>
+
 </resources>

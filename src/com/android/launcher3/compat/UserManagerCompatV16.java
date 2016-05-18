@@ -53,8 +53,4 @@ public class UserManagerCompatV16 extends UserManagerCompat {
     public long getUserCreationTime(UserHandleCompat user) {
         return 0;
     }
-
-    @Override
-    public void enableAndResetCache() {
-    }
 }

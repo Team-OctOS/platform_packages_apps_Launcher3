@@ -87,9 +87,6 @@ public class WidgetsListAdapter extends Adapter<WidgetsRowViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (mWidgetsModel == null) {
-            return 0;
-        }
         return mWidgetsModel.getPackageSize();
     }
 
@@ -169,7 +166,7 @@ public class WidgetsListAdapter extends Adapter<WidgetsRowViewHolder> {
 
         // if the end padding is 0, then container view (horizontal scroll view) doesn't respect
         // the end of the linear layout width + the start padding and doesn't allow scrolling.
-        if (Utilities.ATLEAST_JB_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             cellList.setPaddingRelative(mIndent, 0, 1, 0);
         } else {
             cellList.setPadding(mIndent, 0, 1, 0);

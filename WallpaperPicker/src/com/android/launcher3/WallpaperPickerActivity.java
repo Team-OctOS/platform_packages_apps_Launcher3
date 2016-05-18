@@ -977,8 +977,10 @@ public class WallpaperPickerActivity extends WallpaperCropActivity {
 
         if (partner == null || !partner.hideDefaultWallpaper()) {
             // Add an entry for the default wallpaper (stored in system resources)
-            WallpaperTileInfo defaultWallpaperInfo = Utilities.ATLEAST_KITKAT
-                    ? getDefaultWallpaper() : getPreKKDefaultWallpaperInfo();
+            WallpaperTileInfo defaultWallpaperInfo =
+                    (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                    ? getPreKKDefaultWallpaperInfo()
+                    : getDefaultWallpaper();
             if (defaultWallpaperInfo != null) {
                 bundled.add(0, defaultWallpaperInfo);
             }
