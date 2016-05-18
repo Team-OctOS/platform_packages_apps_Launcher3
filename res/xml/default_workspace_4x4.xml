@@ -29,19 +29,46 @@
     </resolve>
 
     <resolve
-        launcher:screen="0"
-        launcher:x="1"
+        launcher:screen="1"
+        launcher:x="0"
         launcher:y="3" >
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
-        <favorite launcher:uri="#Intent;type=images/*;end" />
+        <favorite
+            launcher:packageName="com.android.settings"
+            launcher:className="com.android.settings.Settings$TentaclesActivity" />
     </resolve>
 
     <resolve
-        launcher:screen="0"
+        launcher:screen="1"
+        launcher:x="1"
+        launcher:y="3" >
+        <favorite
+            launcher:packageName="com.about.octos.aboutoctos"
+            launcher:className="com.about.octos.aboutoctos.AboutOctOs" />
+    </resolve>
+
+    <resolve
+        launcher:screen="1"
+        launcher:x="2"
+        launcher:y="3" >
+        <favorite
+            launcher:packageName="com.android.settings"
+            launcher:className="com.android.settings.Settings" />
+    </resolve>
+
+    <resolve
+        launcher:screen="1"
         launcher:x="3"
         launcher:y="3" >
         <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
         <favorite launcher:uri="market://details?id=com.android.launcher" />
+    </resolve>
+
+    <resolve
+        launcher:screen="2"
+        launcher:x="0"
+        launcher:y="3" >
+        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
+        <favorite launcher:uri="#Intent;type=images/*;end" />
     </resolve>
 
 </favorites>
