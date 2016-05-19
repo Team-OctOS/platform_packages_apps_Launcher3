@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="ltm_application_name">LTMLauncher</string>
+
     <string name="default_string">Default</string>
     <string name="reset_string">Reset</string>
     <string name="set_string">Set</string>

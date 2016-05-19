@@ -69,7 +69,7 @@
         android:allowBackup="@bool/enable_backup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_home"
-        android:label="@string/application_name"
+        android:label="@string/ltm_application_name"
         android:largeHeap="@bool/config_largeHeap"
         android:restoreAnyVersion="true"
         android:supportsRtl="true" >
