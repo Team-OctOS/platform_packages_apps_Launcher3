@@ -2,6 +2,6 @@ package com.android.launcher3;
 
 public class BuildConfig {
 
-    public static final String APPLICATION_ID = "com.slim.slimlauncher";
+    public static final String APPLICATION_ID = "com.octos.ltmlauncher";
 
 }

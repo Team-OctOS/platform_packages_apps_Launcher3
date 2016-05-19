@@ -29,6 +29,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src) \
     $(call all-java-files-under, WallpaperPicker/src) \
     $(call all-proto-files-under, protos) \
     $(call all-java-files-under, source/src)
+
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/WallpaperPicker/res $(LOCAL_PATH)/res
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 LOCAL_STATIC_JAVA_LIBRARIES := android-support-v4 android-support-v7-recyclerview
@@ -36,13 +37,14 @@ LOCAL_STATIC_JAVA_LIBRARIES := android-support-v4 android-support-v7-recyclervie
 LOCAL_PROTOC_OPTIMIZE_TYPE := nano
 LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)/protos/
 LOCAL_AAPT_FLAGS := --auto-add-overlay
+LOCAL_AAPT_FLAGS += --rename-manifest-package com.octos.ltmlauncher
 
 LOCAL_SDK_VERSION := current
-LOCAL_PACKAGE_NAME := SlimLauncher
+LOCAL_PACKAGE_NAME := LTMLauncher
 LOCAL_PRIVILEGED_MODULE := true
 #LOCAL_CERTIFICATE := shared
 
-LOCAL_OVERRIDES_PACKAGES := Home Launcher2 Launcher3
+LOCAL_OVERRIDES_PACKAGES := Home Launcher2
 
 include $(BUILD_PACKAGE)
 

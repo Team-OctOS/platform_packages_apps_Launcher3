@@ -125,6 +125,7 @@ public class IconCache {
     public void reset() {
         mIconDb.clearDB(mIconDb.getWritableDatabase());
         mCache.clear();
+    }
 
     private static Bitmap loadIconNoResize(Cursor c, int iconIndex, BitmapFactory.Options options) {
         byte[] data = c.getBlob(iconIndex);

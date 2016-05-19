@@ -19,10 +19,8 @@
 -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.slim.slimlauncher">
+    package="com.android.launcher3">
     <uses-sdk android:targetSdkVersion="21" android:minSdkVersion="16"/>
-
-    <original-package android:name="com.android.launcher3" />
 
     <permission
         android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
@@ -31,23 +29,23 @@
         android:label="@string/permlab_install_shortcut"
         android:description="@string/permdesc_install_shortcut" />
     <permission
-        android:name="com.slim.slimlauncher.permission.READ_SETTINGS"
+        android:name="com.octos.ltmlauncher.permission.READ_SETTINGS"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
         android:label="@string/permlab_read_settings"
         android:description="@string/permdesc_read_settings"/>
     <permission
-        android:name="com.slim.slimlauncher.permission.WRITE_SETTINGS"
+        android:name="com.octos.ltmlauncher.permission.WRITE_SETTINGS"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="signatureOrSystem"
         android:label="@string/permlab_write_settings"
         android:description="@string/permdesc_write_settings"/>
     <permission
-        android:name="com.slim.slimlauncher.permission.RECEIVE_LAUNCH_BROADCASTS"
+        android:name="com.octos.ltmlauncher.permission.RECEIVE_LAUNCH_BROADCASTS"
         android:protectionLevel="signature"
         />
     <permission
-        android:name="com.slim.slimlauncher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
+        android:name="com.octos.ltmlauncher.permission.RECEIVE_FIRST_LOAD_BROADCAST"
         android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -60,17 +58,17 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.slim.slimlauncher.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="com.slim.slimlauncher.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.slim.slimlauncher.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="com.slim.slimlauncher.permission.RECEIVE_LAUNCH_BROADCASTS" />
-    <uses-permission android:name="com.slim.slimlauncher.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
+    <uses-permission android:name="com.octos.ltmlauncher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.octos.ltmlauncher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.octos.ltmlauncher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.octos.ltmlauncher.permission.RECEIVE_LAUNCH_BROADCASTS" />
+    <uses-permission android:name="com.octos.ltmlauncher.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
 
     <application
         android:allowBackup="@bool/enable_backup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_home"
-        android:label="@string/slim_application_name"
+        android:label="@string/application_name"
         android:largeHeap="@bool/config_largeHeap"
         android:restoreAnyVersion="true"
         android:supportsRtl="true" >
@@ -154,10 +152,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.launcher3.settings.SettingsActivity"
+        <activity
+            android:name="com.android.launcher3.settings.SettingsActivity"
             android:icon="@mipmap/ic_launcher_settings"
             android:label="@string/settings_button_text"
-            android:autoRemoveFromRecents="true"/>
+            android:autoRemoveFromRecents="true"
+            android:theme="@style/Settings"
+            android:parentActivityName="com.android.launcher3.Launcher" >
+        </activity>
 
         <!-- Launcher shortcuts -->
         <activity android:name=".CreateShortcut"
@@ -232,10 +234,10 @@
         <!-- The settings provider contains Home's data, like the workspace favorites -->
         <provider
             android:name="com.android.launcher3.LauncherProvider"
-            android:authorities="com.slim.slimlauncher.settings"
+            android:authorities="com.octos.ltmlauncher.settings"
             android:exported="true"
-            android:writePermission="com.slim.slimlauncher.permission.WRITE_SETTINGS"
-            android:readPermission="com.slim.slimlauncher.permission.READ_SETTINGS" />
+            android:writePermission="com.octos.ltmlauncher.permission.WRITE_SETTINGS"
+            android:readPermission="com.octos.ltmlauncher.permission.READ_SETTINGS" />
 
         <meta-data android:name="android.nfc.disable_beam_default"
                        android:value="true" />

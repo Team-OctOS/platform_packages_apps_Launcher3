@@ -1182,21 +1182,6 @@ public class LauncherModel extends BroadcastReceiver
                             throw new RuntimeException("Unexpected info type");
                         }
 
-                        SharedPreferences mSharedPrefs = this.mContext.getSharedPreferences(LauncherAppState.getSharedPreferencesKey(),
-                               Context.MODE_PRIVATE);
-
-                       //We're checking if icon pack has changed
-                       String dbIconPack = mSharedPrefs.getString("iconpack", null);
-                       String currentIconPack = ThemeUtils.getCurrentIconPack(this.mContext);
-
-                       if (dbIconPack != null && currentIconPack != null && !currentIconPack.equals(dbIconPack)) {
-                           mIconCache.reset();
-                       }
-
-                       SharedPreferences.Editor editor = mSharedPrefs.edit();
-                       editor.putString("iconpack", currentIconPack);
-                       editor.apply();
-
                         // Add the shortcut to the db
                         addItemToDatabase(context, itemInfo,
                                 LauncherSettings.Favorites.CONTAINER_DESKTOP,
@@ -2090,6 +2075,21 @@ public class LauncherModel extends BroadcastReceiver
             if (DEBUG_LOADERS) {
                 Log.d(TAG, "loadAndBindWorkspace mWorkspaceLoaded=" + mWorkspaceLoaded);
             }
+
+            SharedPreferences mSharedPrefs = this.mContext.getSharedPreferences(LauncherAppState.getSharedPreferencesKey(),
+                    Context.MODE_PRIVATE);
+
+            //We're checking if icon pack has changed
+            String dbIconPack = mSharedPrefs.getString("iconpack", null);
+            String currentIconPack = ThemeUtils.getCurrentIconPack(this.mContext);
+
+            if (dbIconPack != null && currentIconPack != null && !currentIconPack.equals(dbIconPack)) {
+                mIconCache.reset();
+            }
+
+            SharedPreferences.Editor editor = mSharedPrefs.edit();
+            editor.putString("iconpack", currentIconPack);
+            editor.apply();
 
             if (!mWorkspaceLoaded) {
                 loadWorkspace();
