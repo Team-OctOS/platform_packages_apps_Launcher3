@@ -532,7 +532,7 @@ public class AppsCustomizePagedView extends PagedView implements
         int heightSpec = MeasureSpec.makeMeasureSpec(mContentHeight, MeasureSpec.AT_MOST);
         layout.measure(widthSpec, heightSpec);
 
-        Drawable bg = getContext().getResources().getDrawable(R.drawable.quantum_panel);
+        Drawable bg = getContext().getResources().getDrawable(R.drawable.quantum_panel_dark);
         //int color = SettingsProvider.getInt(mLauncher, SettingsProvider.KEY_DRAWER_BACKGROUND,
         //      Color.WHITE);
         if (bg != null) {

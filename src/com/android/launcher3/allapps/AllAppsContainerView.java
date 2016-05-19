@@ -378,7 +378,7 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
 
         // TODO: Use quantum_panel instead of quantum_panel_shape
         InsetDrawable background = new InsetDrawable(
-                getResources().getDrawable(R.drawable.quantum_panel_shape), padding.left, 0,
+                getResources().getDrawable(R.drawable.quantum_panel_shape_dark), padding.left, 0,
                 padding.right, 0);
         Rect bgPadding = new Rect();
         background.getPadding(bgPadding);
