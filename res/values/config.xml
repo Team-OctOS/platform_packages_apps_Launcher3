@@ -41,7 +41,7 @@
          is used for internal (baked-in) padding -->
     <integer name="config_allAppsButtonPaddingPercent">17</integer>
 
-    <integer name="config_workspaceDefaultScreen">1</integer>
+    <integer name="config_workspaceDefaultScreen">2</integer>
 
     <!-- The slope, in percent, of the drag movement needed to drag an item out of
          AppsCustomize (y / x * 100%)  -->
