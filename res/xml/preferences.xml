@@ -4,31 +4,37 @@
     <header
         android:fragment="com.android.launcher3.settings.HomescreenFragment"
         android:id="@+id/pref_homescreen"
+        android:icon="@drawable/ic_settings_home"
         android:title="@string/homescreen_title" />
 
     <header
         android:fragment="com.android.launcher3.settings.DockFragment"
         android:id="@+id/pref_dock"
+        android:icon="@drawable/ic_settings_dock"
         android:title="@string/dock_title" />
 
     <header
         android:fragment="com.android.launcher3.settings.DrawerFragment"
         android:id="@+id/pref_drawer"
+        android:icon="@drawable/ic_settings_drawer"
         android:title="@string/drawer_title" />
 
     <header
         android:fragment="com.android.launcher3.settings.FolderFragment"
         android:id="@+id/pref_folder"
+        android:icon="@drawable/ic_settings_folder"
         android:title="@string/folder_title" />
 
     <header
         android:fragment="com.android.launcher3.settings.GestureFragment"
         android:id="@+id/pref_gestures"
+        android:icon="@drawable/ic_settings_gesture"
         android:title="@string/gestures_title" />
 
     <header
         android:fragment="com.android.launcher3.settings.GeneralFragment"
         android:id="@+id/pref_general"
+        android:icon="@drawable/ic_settings_general"
         android:title="@string/general_title" />
 
     <!--<header
