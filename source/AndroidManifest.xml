@@ -152,14 +152,10 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.android.launcher3.settings.SettingsActivity"
+        <activity android:name="com.android.launcher3.settings.SettingsActivity"
             android:icon="@mipmap/ic_launcher_settings"
             android:label="@string/settings_button_text"
-            android:autoRemoveFromRecents="true"
-            android:theme="@style/Settings"
-            android:parentActivityName="com.android.launcher3.Launcher" >
-        </activity>
+            android:autoRemoveFromRecents="true"/>
 
         <!-- Launcher shortcuts -->
         <activity android:name=".CreateShortcut"
