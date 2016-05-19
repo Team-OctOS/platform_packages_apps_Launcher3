@@ -392,8 +392,9 @@ public class Workspace extends PagedView
 
         initWorkspace();
 
-        mDefaultScreenId = SettingsProvider.getLong(context, SettingsProvider.DEFAULT_HOMESCREEN,
-                getScreenIdForPageIndex(res.getInteger(R.integer.config_workspaceDefaultScreen)));
+        mDefaultScreenId = getResources().getInteger(R.integer.config_workspaceDefaultScreen);
+        //mDefaultScreenId = SettingsProvider.getLong(context, SettingsProvider.DEFAULT_HOMESCREEN,
+        //        getScreenIdForPageIndex(res.getInteger(R.integer.config_workspaceDefaultScreen)));
 
         // Disable multitouch across the workspace/all apps/customize tray
         setMotionEventSplittingEnabled(true);
